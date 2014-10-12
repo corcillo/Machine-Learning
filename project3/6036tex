@@ -1,0 +1,196 @@
+% Latex Macro package for 6.01
+% based on package for 6.001
+% originally done by Nikhil, November, 1988
+% updated by Hal, spring 1988
+% updated by Arthur, fall 1989
+% Hal, spring 1998: commented out beginlisp and endlisp in favor of
+%   using \small and verbatim, because I'm tired of fighting with
+%   latex2html trying to get it to work right together with beginlisp
+%   and endlisp 
+
+% Updated by LPK, Jan 07 to add questions and checkpoint stuff
+% Updated by JKW, Jan 14 for 6.036
+
+\documentclass[11pt]{article}
+
+%%%%%%%%%%% LPK %%%%%%%%%%%%%%%%
+
+\usepackage{boxedminipage}
+
+\newcounter{probcount}
+\newcounter{probcountcurrent}
+\newcommand{\saveprobcount}{\setcounter{probcountcurrent}{\value{probcount}}}
+\newcommand{\useprobcount}{\setcounter{probcount}{\value{probcountcurrent}}}
+%\renewcommand{\theenumi}{{\bf Question }\Roman{enumi}}
+
+\newenvironment{questions}
+   {
+    \begin{boxedminipage}{\textwidth}
+    \begin{list}{{\textsc{\bf Question}} \arabic{probcount}. }%
+       {\usecounter{probcount}\useprobcount%
+         %\setlength{\labelsep}{0pt}%
+         %\setlength{\rightmargin}{20pt}%
+         %\setlength{\labelwidth}{0pt}%
+         %\setlength{\listparindent}{0pt}%
+       }}%
+   {\saveprobcount\end{list}%
+ \end{boxedminipage}
+ }
+
+\newcommand{\checkpoint}[1]{\fbox{\begin{minipage}{6in} #1 \end{minipage}}}
+
+%%%%%%%%%%% LPK %%%%%%%%%%%%%%%%
+
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9.0in}
+
+\addtolength{\parskip}{8pt}
+
+% Need to point this at the right thing for Latex2html
+%\input{/usr/lib/latex2html/texinputs/html.sty}
+
+\pagestyle{myheadings}
+
+% NO NUMBERING ON SECTIONS
+\setcounter{secnumdepth}{0}
+
+% ----------------
+% PARAGRAPH INDENTATION
+\setlength{\parindent}{0in}
+
+% SPACE BETWEEN PARAGRAPHS
+\setlength{\parskip}{\medskipamount}
+
+% ----------------
+% EVALUATION SYMBOL
+\newcommand{\evalsto}{$\Longrightarrow$}
+
+% ----------------
+% STRUTS
+% HORIZONTAL STRUT.  One argument (width).
+\newcommand{\hstrut}[1]{\hspace*{#1}}
+% VERTICAL STRUT. Two arguments (offset from baseline, height).
+\newcommand{\vstrut}[2]{\rule[#1]{0in}{#2}}
+
+% ----------------
+% EMPTY BOXES OF VARIOUS WIDTHS, FOR INDENTATION
+\newcommand{\hm}{\hspace*{1em}}
+\newcommand{\hmm}{\hspace*{2em}}
+\newcommand{\hmmm}{\hspace*{3em}}
+\newcommand{\hmmmm}{\hspace*{4em}}
+
+% ----------------
+% VARIOUS CONVENIENT WIDTHS RELATIVE TO THE TEXT WIDTH, FOR BOXES.
+\newlength{\hlessmm}
+\setlength{\hlessmm}{\textwidth}
+\addtolength{\hlessmm}{-2em}
+
+\newlength{\hlessmmmm}
+\setlength{\hlessmmmm}{\textwidth}
+\addtolength{\hlessmmmm}{-4em}
+
+% ----------------
+% ``TIGHTLIST'' ENVIRONMENT (no para space between items, small indent)
+\newenvironment{tightlist}%
+{\begin{list}{$\bullet$}{%
+    \setlength{\topsep}{0in}
+    \setlength{\partopsep}{0in}
+    \setlength{\itemsep}{0in}
+    \setlength{\parsep}{0in}
+    \setlength{\leftmargin}{1.5em}
+    \setlength{\rightmargin}{0in}
+    \setlength{\itemindent}{0in}
+}
+}%
+{\end{list}
+}
+
+% ----------------
+% CODE FONT (e.g. {\cf x := 0}).
+\newcommand{\cf}{\footnotesize\tt}
+
+\newcommand{\codesize}{\footnotesize}
+
+% ----------------
+% INSTRUCTION POINTER
+\newcommand{\IP}{$\bullet$}
+\newcommand{\goesto}{$\longrightarrow$}
+
+% ----------------------------------------------------------------
+% CODE DISPLAYS.
+% Code displays are enclosed between \bid and \eid.
+% Most characters are taken verbatim, in typewriter font,
+% Except:
+%  Commands are still available (beginning with \)
+%  Math mode is still available (beginning with $)
+
+%This is commented out by Hal because I can't figure out how to make
+%it preserve blank lines
+%instead, use
+%{\small
+%\begin{verbatim}
+% ..<code>
+%\end{verbatim}
+%}
+
+%% \outer\def\begincode{%
+%%  \begin{minipage}[t]{\linewidth}
+%%   \begin{list}{$\bullet$}{%
+%%     \setlength{\topsep}{0in}
+%%     \setlength{\partopsep}{0in}
+%%     \setlength{\itemsep}{0in}
+%%     \setlength{\parsep}{0in}
+%%     \setlength{\leftmargin}{1.5em}
+%%     \setlength{\rightmargin}{0in}
+%%     \setlength{\itemindent}{0in}
+%%   }\item[]
+%%   \obeyspaces
+%%   \obeylines \small\tt
+%% }
+
+%% \outer\def\endcode{%
+%%   \end{list}
+%%   \end{minipage}
+%%   }
+
+%% {\obeyspaces\gdef {\ }}
+
+
+% PROBLEM SET HEADER -- args are semester and problem set or solution
+% example: \psetheader{Spring Semester, 1989}{Problem set 1}
+\newcommand{\psetheader}[2]{%
+\markright{6.036, #1 -- #2}
+\begin{center}
+MASSACHVSETTS INSTITVTE OF TECHNOLOGY \\
+Department of Electrical Engineering and Computer Science \\
+6.036---Introduction to Machine Learning \\
+#1 \\
+\medskip
+{\bf #2}
+\end{center}
+}
+
+% PROBLEM HEADER
+\newcommand{\problem}[1]{{\bf #1}}
+
+% KEYS
+\newcommand{\key}[1]{\fbox{{\sc #1}}}
+\newcommand{\ctrl}{\key{ctrl}--}
+\newcommand{\shift}{\key{shift}--}
+\newcommand{\run}{\key{run} \ }
+\newcommand{\runkey}[1]{\run \key{#1}}
+\newcommand{\extend}{\key{extend} \ }
+\newcommand{\kkey}[1]{\key{k$_{#1}$}}
+
+%% Examples of keys
+%% \key{abort}
+%% \ctrl\key{g}
+%% \extend\key{logout}
+%% \kkey{1}
+%% \shift\kkey{1}
+
+% ----------------------------------------------------------------
+% HERE BEGINS THE DOCUMENT
+% start with \begin{document}

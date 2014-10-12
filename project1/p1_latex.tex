@@ -1,0 +1,31 @@
+\documentclass[12pt,twoside]{article}
+
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{clrscode3e}
+
+\input{macros}
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+\newcommand{\theproblemsetnum}{1}
+\newcommand{\releasedate}{Thursday, February 20}
+\newcommand{\partaduedate}{Thursday, February 20}
+\newcommand{\tabUnit}{3ex}
+\newcommand{\tabT}{\hspace*{\tabUnit}}
+
+\title{6.036 Project 1} \endline
+
+\begin{document}
+
+\handout{Project 1\theproblemsetnum}{February 20, 2014}
+
+\begin{problems}
+\problem  To modify the averager algorithm to use a non-zero offset $\Theta_0$, I edited the averager function in $project1_code.py$ to create a $\Theta_0$ number of tweets length vector of zeros, just as there was already a $\Theta$ vector. I made it so $\Theta_0$ was updated every time the algorithm ran through the for loop so it was equal to its previous value + the label for the current tweet. I had the averager function return a tuple of $(\Theta_0,\Theta)$. I changed the $example_averager.py$ file to unpack the tuple returned from the call on the averager function into $\Theta_0$ and $\Theta$ variables, and then changed the perceptron classify function call to take in this $\Theta_0$ instead of zero. \newline
+Unexpectedly, the addition of a non-zero $\Theta_0$ lowers the correctness of the algorithm, from 68.41\% to 66.19\%.
+\end{problems}
+\end{document}
